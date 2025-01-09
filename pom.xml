@@ -97,13 +97,13 @@
 	    <repository>
 	      <id>nexus</id>
 	      <name>Mithun Technologies Releases Nexus Repository</name>
-	      <url>http://54.90.56.209:8081/repository/javawebapp-release/</url>
+	      <url>http://54.90.189.250:8081/repository/javawebapp-release/</url>
 	    </repository>
 	    
 	    <snapshotRepository>
 	      <id>nexus</id>
 	      <name>Mithun Technologies Snapshot Nexus Repository </name>
-	      <url>http://54.90.56.209:8081/repository/javawebapp-snapshot/</url>
+	      <url>http://54.90.189.250:8081/repository/javawebapp-snapshot/</url>
 	    </snapshotRepository>
 	    
 	</distributionManagement>
