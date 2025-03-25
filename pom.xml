@@ -21,8 +21,8 @@
 		<spring.version>5.1.2.RELEASE</spring.version>
 		<junit.version>4.11</junit.version>
 		<log4j.version>1.2.17</log4j.version>
-		<sonar.host.url>http://3.144.8.141:9000/</sonar.host.url>
-                <sonar.token>squ_59fe3fb32a6611627c2a5859042f03a105c53d42</sonar.token>
+		<sonar.host.url>http://3.148.174.89:9000/</sonar.host.url>
+                <sonar.login>squ_59fe3fb32a6611627c2a5859042f03a105c53d42</sonar.login>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -104,7 +104,7 @@
 	    <snapshotRepository>
 	      <id>nexus</id>
 	      <name>Icicibank-snapshot Repository </name>
-	      <url>http://3.128.94.45:9980/repository/icicibank-snapshot/</url>
+	      <url>http://18.222.167.27:9980/repository/icicibank-snapshot/</url>
 	    </snapshotRepository>
 	    
 	</distributionManagement>
