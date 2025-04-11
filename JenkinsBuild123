@@ -6,7 +6,7 @@ pipeline {
             }
             
  parameters {
-  choice choices: ['master', 'developement', 'uat', 'stage'], description: 'select the branch to build', name: 'Brachname'
+  choice choices: ['master', 'development', 'uat', 'stage'], description: 'select the branch to build', name: 'Brachname'
 }
     
     stages{
