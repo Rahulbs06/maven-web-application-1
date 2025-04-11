@@ -1,0 +1,28 @@
+pipeline {
+    agent any 
+    
+    tools {
+          maven 'maven 3.9.9'
+            }
+            
+ parameters {
+  choice choices: ['master', 'developement', 'uat', 'stage'], description: 'select the branch to build', name: 'Brachname'
+}
+    
+    stages{
+        stage('Checkout Code')
+        {
+         steps
+         {
+            git branch: "${params.Brachname}", credentialsId: '9b021da0-7295-4285-901f-e7f1de0998ab', url: 'https://github.com/Rahulbs06/maven-web-application-1.git'
+         }   
+        }
+        stage('Build')
+        {
+          steps
+         {
+          sh 'mvn clean package'      
+         }
+        }
+    }
+}
