@@ -1,83 +1,49 @@
-pipeline{
+pipeline {
+    
+    agent any
+    
+    tools {
+  maven 'Maven 3.9.8'
+         }
+         
+    stages {
+        stage ('Checkout Code')
+             {
+             steps{
+                     git credentialsId: 'a7314d5b-25ce-4c6c-89fc-0d0881d2596a', url: 'https://github.com/MithunTechnologiesDevOps/maven-web-application.git'
+                 }
+             }    
+        stage('Compile the code')      
+            {
+             steps{
+                   sh 'mvn clean compile'
+                 }
+            }
+        stage('Test the code')
+              {
+                  steps{
+                     sh 'mvn test' 
+                  }
+              }
+        stage('Build the package')
+           {
+               steps{
+                   sh 'mvn clean package'
+               }
+           }
+         stage('Build and Deploy the image'){
+             steps{
+                 sh "docker build -t rahulbs6/zero-to-hero:{BUILD_NUMBER} ."
+                 sh 'dockes image ls'
+                 sh 'docker login -u Rahulbs6 -p Docker@123'
+                 sh "docker pull {BUILD_NUMBER}"
+                 echo 'Image is built and pulled to repository'
+             }
+         }
+        
 
-agent any
+        
+        
+    }  //stages closing
+}      //pipeline closing
 
-tools
-{
-  maven 'maven3.6.3'
-
-}
-
-triggers{
- pollSCM('* * * * *')
-}
-
-options{
-    timestamps()
-    buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '2', daysToKeepStr: '', numToKeepStr: '2'))
-}
-
- stages{
-   
-   stage('CheckoutCode')
-   {
-     steps{
-	 git branch: 'development', credentialsId: '8e348aa2-9531-4dbe-863d-1adb64897470', url: 'https://github.com/MithunTechnologiesDevOps/maven-web-application.git'
-	 }
-   }
-   
-   stage('Build')
-   {
-    steps{
-	  sh "mvn clean package"
-	 }
-   }
-   
-    stage('ExecuteSonarQubeReport')
-   {
-     steps{
-	  sh "mvn sonar:sonar"
-	 }
-   }
-   
-   stage('UploadArtifactintoNexus')
-   {
-     steps{
-	  sh "mvn deploy"
-	 }
-   }
-   
-  stage('DeployAppIntoTomcat')
- {
-   steps{
-  sshagent(['2b7b0c6a-5eff-4f4a-82c3-3630f91c70b5']) {
-  sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@3.1.222.74:/opt/apache-tomcat-9.0.41/webapps/"
-  }
- }
- }
- 
-  
- 
- }
- 
- post{
- 
- 
- success{
- mail bcc: 'devopstrainingblr@gmail.com', body: '''BuildOver!....
-
- Regards,
- Mithun Technologies,
- 9980923226''', cc: 'devopstrainingblr@gmail.com', from: '', replyTo: '', subject: 'BuildOver!!', to: 'devopstrainingblr@gmail.com'
- }
- 
- failure{
- mail bcc: 'devopstrainingblr@gmail.com', body: '''BuildOver!....
-
- Regards,
- Mithun Technologies,
- 9980923226''', cc: 'devopstrainingblr@gmail.com', from: '', replyTo: '', subject: 'BuildOver!!', to: 'devopstrainingblr@gmail.com'
- }
- 
- }
-}
